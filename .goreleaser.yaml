@@ -21,7 +21,7 @@ archives:
     name_template: "{{.ProjectName}}_v{{.Version}}_{{.Os}}_{{.Arch}}"
 
 checksum:
-  name_template: "{{.ProjectName}}_v{{.Version}}_SHASUMS"
+  name_template: "{{.ProjectName}}_{{.Version}}_SHA256SUMS"
 
 signs:
   - cmd: gpg
