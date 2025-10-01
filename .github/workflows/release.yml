@@ -31,5 +31,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPG_KEY_ID: "98D744DE8C69779A"  # e.g. last 16 chars of fingerprint
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
