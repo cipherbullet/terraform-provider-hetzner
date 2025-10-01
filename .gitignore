@@ -1,3 +1,6 @@
+.gnupg*
+.gpg*
+
 # Created by https://www.toptal.com/developers/gitignore/api/go,terraform,visualstudiocode,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,terraform,visualstudiocode,git
 
