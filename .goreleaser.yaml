@@ -15,8 +15,6 @@ builds:
 archives:
   - format: zip
     name_template: "terraform-provider-hetzner_v{{.Version}}_{{.Os}}_{{.Arch}}"
-    files:
-      - none* # don't include extra files, just the binary
 
 checksum:
   name_template: "SHA256SUMS"
@@ -24,6 +22,8 @@ checksum:
 signs:
   - artifacts: checksum
     args:
+      - "--batch"
+      - "--yes"
       - "--armor"
       - "--detach-sign"
       - "--local-user={{ .Env.GPG_FINGERPRINT }}"
