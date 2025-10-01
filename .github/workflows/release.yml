@@ -18,20 +18,6 @@ jobs:
         with:
           go-version: "1.22"
 
-      - name: Import GPG key
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --batch --import
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
-      - name: Import GPG key
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --batch --import
-
-      - name: Set GPG trust
-        run: |
-          echo "${{ secrets.GPG_FINGERPRINT }}:6:" | gpg --import-ownertrust
-
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:
@@ -40,3 +26,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GPG_FINGERPRINT: ${{ secrets.GPG_FINGERPRINT }}
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
