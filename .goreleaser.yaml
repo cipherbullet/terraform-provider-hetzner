@@ -29,7 +29,6 @@ signs:
     args:
       - "--batch"
       - "--yes"
-      - "--armor"
       - "--detach-sign"
       - "--pinentry-mode"
       - "loopback"
