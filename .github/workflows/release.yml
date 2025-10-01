@@ -24,6 +24,13 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --batch --import
+      - name: Set GPG trust
+        run: |
+          echo "${{ secrets.GPG_KEY_ID }}:6:" | gpg --import-ownertrust
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:

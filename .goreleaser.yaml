@@ -20,13 +20,15 @@ checksum:
   name_template: "SHA256SUMS"
 
 signs:
-  - artifacts: checksum
+  - cmd: gpg
+    artifacts: checksum
     args:
       - "--batch"
       - "--yes"
       - "--armor"
       - "--detach-sign"
-      - "--local-user={{ .Env.GPG_FINGERPRINT }}"
+      - "--local-user"
+      - "{{ .Env.GPG_KEY_ID }}"
 
 release:
   prerelease: auto
