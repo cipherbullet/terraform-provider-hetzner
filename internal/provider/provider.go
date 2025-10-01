@@ -17,7 +17,6 @@ func Provider() *schema.Provider {
 			"robot": {
 				Type:     schema.TypeList,
 				Optional: true,
-				ConflictsWith: []string{"cloud"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"user": {
@@ -40,7 +39,6 @@ func Provider() *schema.Provider {
 			"cloud": {
 				Type:     schema.TypeList,
 				Optional: true,
-				ConflictsWith: []string{"robot"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"token": {
