@@ -28,7 +28,7 @@ signs:
       - "--armor"
       - "--detach-sign"
       - "--local-user"
-      - "{{ .Env.GPG_KEY_ID }}"
+      - "{{ .Env.GPG_FINGERPRINT }}"
 
 release:
   prerelease: auto
