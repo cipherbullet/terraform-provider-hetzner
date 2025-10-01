@@ -1,5 +1,9 @@
 project_name: terraform-provider-hetzner
 
+before:
+  hooks:
+    - go mod tidy
+
 builds:
   - env:
       - CGO_ENABLED=0
@@ -20,15 +24,15 @@ checksum:
   name_template: "SHA256SUMS"
 
 signs:
-  - cmd: gpg
-    artifacts: checksum
+  - artifacts: checksum
     args:
       - "--batch"
       - "--yes"
       - "--armor"
       - "--detach-sign"
-      - "--local-user"
-      - "{{ .Env.GPG_FINGERPRINT }}"
+      - "--pinentry-mode"
+      - "loopback"
+      - "--passphrase={{ .Env.GPG_PASSPHRASE }}"
 
 release:
   prerelease: auto

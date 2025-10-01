@@ -5,25 +5,28 @@ on:
     tags:
       - "v*.*.*"
 
-permissions:
-  contents: write # to publish github releases using goreleases in pipeline
-
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v4
         with:
           go-version: "1.22"
+
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+          gpg --list-secret-keys
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v5
         with:
+          distribution: goreleaser
           version: latest
           args: release --clean
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GPG_FINGERPRINT: ${{ secrets.GPG_FINGERPRINT }}
+          GPG_KEY_ID: "<your key id here>"  # e.g. last 16 chars of fingerprint
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}

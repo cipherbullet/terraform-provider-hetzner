@@ -3,7 +3,7 @@ SHELL := /bin/bash
 # --- Config (override on the command line or in env) ---
 NAME  ?= Hetzner Terraform Provider
 EMAIL ?= info@cipherbullet.com
-
+GPG_PASSPHRASE ?= DSO1EjP0PP3NJAWLZtFlftWt2EiWe2heSyMnpjZG4mfpq7heSGRjOI0Vriiy
 # Isolated keyring (doesn't touch ~/.gnupg)
 GNUPGHOME ?= $(CURDIR)/.gnupg-ci
 
@@ -26,7 +26,6 @@ KEYID_FILE := $(GPG_OUT)/keyid.txt
 gpg-init:
 	@mkdir -p "$(GNUPGHOME)" "$(GPG_OUT)"; chmod 700 "$(GNUPGHOME)"
 	@{ \
-	  echo "%no-protection"; \
 	  echo "Key-Type: RSA"; \
 	  echo "Key-Length: 4096"; \
 	  echo "Subkey-Type: RSA"; \
@@ -34,6 +33,7 @@ gpg-init:
 	  echo "Name-Real: $(NAME)"; \
 	  echo "Name-Email: $(EMAIL)"; \
 	  echo "Expire-Date: 0"; \
+	  echo "Passphrase: $(GPG_PASSPHRASE)"; \
 	  echo "%commit"; \
 	} > $(GPG_OUT)/gen-key.conf
 	@gpg --batch --homedir "$(GNUPGHOME)" --generate-key $(GPG_OUT)/gen-key.conf
@@ -60,8 +60,8 @@ gpg-export: $(FPR_FILE)
 	echo "✓ Exported keys into $(GPG_OUT)"
 
 gpg-export-b64: $(PUB_ASC) $(PRIV_ASC)
-	@base64 < "$(PUB_ASC)"  > "$(PUB_B64)"
-	@base64 < "$(PRIV_ASC)" > "$(PRIV_B64)" # secret: GPG_PRIVATE_KEY
+	@base64 < "$(PUB_ASC)" | tr -d '\n' > "$(PUB_B64)"
+	@base64 < "$(PRIV_ASC)" | tr -d '\n' > "$(PRIV_B64)" # secret: GPG_PRIVATE_KEY
 	@echo "✓ Exported base64 versions into $(GPG_OUT)"
 
 gpg-clean:
