@@ -35,7 +35,6 @@ signs:
       - "loopback"
       - "--passphrase"
       - "{{ .Env.GPG_PASSPHRASE }}"
-      - "--local-user={{ .Env.GPG_KEY_ID }}"
 
 release:
   prerelease: auto
