@@ -26,7 +26,7 @@ signs:
     args:
       - "--armor"
       - "--detach-sign"
-      - "--local-user=YOUR_KEY_ID"
+      - "--local-user=C1301F4400BDC0C8496FED6339BDCCEACDB4A92B"
 
 release:
   prerelease: auto
