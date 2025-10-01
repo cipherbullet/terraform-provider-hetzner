@@ -8,11 +8,11 @@ builds:
   - env:
       - CGO_ENABLED=0
     goos:
-      # - linux
+      - linux
       - darwin
-      # - windows
+      - windows
     goarch:
-      # - amd64
+      - amd64
       - arm64
     binary: terraform-provider-hetzner
 
@@ -21,7 +21,7 @@ archives:
     name_template: "terraform-provider-hetzner_v{{.Version}}_{{.Os}}_{{.Arch}}"
 
 checksum:
-  name_template: "SHA256SUMS"
+  name_template: "SHASUMS"
 
 signs:
   - cmd: gpg
