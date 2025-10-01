@@ -21,7 +21,7 @@ archives:
     name_template: "terraform-provider-hetzner_v{{.Version}}_{{.Os}}_{{.Arch}}"
 
 checksum:
-  name_template: "SHASUMS"
+  name_template: "terraform-provider-{{.ProjectName}}_{{.Version}}_SHA256SUMS"
 
 signs:
   - cmd: gpg
